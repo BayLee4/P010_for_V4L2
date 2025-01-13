@@ -70,11 +70,7 @@ jobs:
         echo 'sudo wget ${{env.SCRIPT_PATH}}/dkms/dkms-patchmodule.sh -O /usr/src/v4l2-p010-1.0/dkms-patchmodule.sh && sudo chmod +x /usr/src/v4l2-p010-1.0/dkms-patchmodule.sh' >> start_chroot_script
         echo 'sudo dkms add -m v4l2-p010 -v 1.0' >> start_chroot_script
         echo 'sudo wget ${{env.SCRIPT_PATH}}/rpi-source/rpi-source -O /usr/local/bin/rpi-source && sudo chmod +x /usr/local/bin/rpi-source && /usr/local/bin/rpi-source -q --tag-update --processor 4' >> start_chroot_script
-        echo 'KERNELS=$(ls -d /usr/lib/linux-image* | sed -E "s/.*linux-image-([0-9\.]+.*)/\1/")' >> start_chroot_script
-        echo 'for KERNEL in $KERNELS' >> start_chroot_script
-        echo 'do' >> start_chroot_script
-        echo 'sudo dkms install -m v4l2-p010/1.0 -k $KERNEL -a arm64' >> start_chroot_script
-        echo 'done' >> start_chroot_script
+        echo 'sudo dkms install -m v4l2-p010/1.0 -a arm64' >> start_chroot_script
         echo 'touch /boot/ssh' >> start_chroot_script
         echo "echo -n 'pi:' > /boot/userconf" >> start_chroot_script
         echo "echo 'raspberry' | openssl passwd -6 -stdin >> /boot/userconf" >> start_chroot_script
